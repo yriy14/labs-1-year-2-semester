@@ -1,0 +1,13 @@
+11
+a
+at
+rat
+rate
+crate
+crates
+cat
+cats
+car
+care
+caret
+
