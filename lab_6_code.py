@@ -15,7 +15,6 @@ class DSU:
             self.people.append(x)
             self.parent.append(x)
             return x
-
         if self.parent[idx] != x:
             self.parent[idx] = self.find(self.parent[idx])
         return self.parent[idx]
@@ -27,17 +26,14 @@ class DSU:
         if idx_x != -1:
             self.parent[idx_x] = ry
 
-
-def main():
-    n = int(input())
-
+def process_pairs(input_lines):
+    n = int(input_lines[0])
     dsu = DSU()
     people = []
 
-    for _ in range(n):
-        line = input()
+    for line in input_lines[1:n+1]:
         i = 0
-        while line[i] == ' ':
+        while i < len(line) and line[i] == ' ':
             i += 1
         num1 = ''
         while i < len(line) and line[i] != ' ':
@@ -99,7 +95,4 @@ def main():
         result += boys[i] * (total_girls - girls[i])
         result += girls[i] * (total_boys - boys[i])
 
-    print(result // 2)
-
-
-main()
+    return result // 2
