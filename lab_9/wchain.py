@@ -19,28 +19,84 @@ def read_words(filename):
     f.close()
     return words
 
+def radix_sort_by_length(words):
+    max_len = 0
+    i = 0
+    while i < len(words):
+        length = 0
+        while True:
+            try:
+                _ = words[i][length]
+                length += 1
+            except IndexError:
+                break
+        if length > max_len:
+            max_len = length
+        i += 1
+
+    count = [0] * (max_len + 1)
+    i = 0
+    while i < len(words):
+        length = 0
+        while True:
+            try:
+                _ = words[i][length]
+                length += 1
+            except IndexError:
+                break
+        count[length] += 1
+        i += 1
+    j = 1
+    while j <= max_len:
+        count[j] = count[j] + count[j - 1]
+        j += 1
+
+    output = [None] * len(words)
+    i = len(words) - 1
+    while i >= 0:
+        length = 0
+        while True:
+            try:
+                _ = words[i][length]
+                length += 1
+            except IndexError:
+                break
+        count[length] -= 1
+        output[count[length]] = words[i]
+        i -= 1
+
+    i = 0
+    while i < len(words):
+        words[i] = output[i]
+        i += 1
 
 def build_chain(words):
     word_dict = {}
-    for i in range(len(words)):
+    i = 0
+    while i < len(words):
         word_dict[words[i]] = 0
+        i += 1
 
-    for i in range(len(words)):
-        for j in range(i + 1, len(words)):
-            if len(words[i]) > len(words[j]):
-                temp = words[i]
-                words[i] = words[j]
-                words[j] = temp
+    radix_sort_by_length(words)
 
     max_chain = 1
-    for i in range(len(words)):
+    i = 0
+    while i < len(words):
         current_word = words[i]
         best = 1
         j = 0
-        while j < len(current_word):
+        length = 0
+        while True:
+            try:
+                _ = current_word[length]
+                length += 1
+            except IndexError:
+                break
+
+        while j < length:
             smaller = ""
             k = 0
-            while k < len(current_word):
+            while k < length:
                 if k != j:
                     smaller += current_word[k]
                 k += 1
@@ -51,6 +107,7 @@ def build_chain(words):
         word_dict[current_word] = best
         if best > max_chain:
             max_chain = best
+        i += 1
     return max_chain
 
 def write_result(filename, result):
@@ -58,12 +115,10 @@ def write_result(filename, result):
     f.write(str(result))
     f.close()
 
-
 def main():
-    words = read_words("C:/Users/Admin/OneDrive/Desktop/lab_9/wchain.in.txt")
+    words = read_words("lab_9/wchain.in.txt")
     result = build_chain(words)
-    write_result("C:/Users/Admin/OneDrive/Desktop/lab_9/wchain.out.txt", result)
-
+    write_result("lab_9/wchain.out.txt", result)
 
 if __name__ == "__main__":
     main()
