@@ -1,0 +1,57 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
+import unittest
+from lab_6_code import process_pairs
+
+class TestDSU(unittest.TestCase):
+    def test_disjoint_sets(self):
+        input_data = [
+            "4",
+            "1 2",
+            "3 4",
+            "5 6",
+            "7 8"
+        ]
+        self.assertEqual(process_pairs(input_data), 12)
+
+    def test_all_connected(self):
+        input_data = [
+            "3",
+            "1 2",
+            "2 3",
+            "3 4"
+        ]
+        self.assertEqual(process_pairs(input_data), 0)
+
+    def test_mixed_even_odd(self):
+        input_data = [
+            "5",
+            "1 2",
+            "3 4",
+            "5 6",
+            "7 8",
+            "1 3"
+        ]
+        self.assertEqual(process_pairs(input_data), 10)
+
+    def test_single_pair(self):
+        input_data = [
+            "1",
+            "1 2"
+        ]
+        self.assertEqual(process_pairs(input_data), 0)
+
+    def test_duplicate_pairs(self):
+        input_data = [
+            "3",
+            "1 2",
+            "2 1",
+            "1 2"
+        ]
+        self.assertEqual(process_pairs(input_data), 0)
+
+if __name__ == "__main__":
+    unittest.main()
