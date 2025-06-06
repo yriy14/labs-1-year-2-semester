@@ -43,6 +43,6 @@ def write_output(filename, index, comparisons):
         f.write("Останній індекс входження: " + str(index) + "\n")
         f.write("Кількість порівнянь: " + str(comparisons) + "\n")
 
-haystack, needle = read_input("C:/Users/User/Desktop/Labs/2 semester/lab_7/input.txt")
+haystack, needle = read_input("C:/Users/User/Desktop/work/input_lab7.txt")
 index, comparisons = naive_search_last(haystack, needle)
-write_output("C:/Users/User/Desktop/Labs/2 semester/lab_7/output.txt", index, comparisons)
+write_output("C:/Users/User/Desktop/work/output_lab7.txt", index, comparisons)
